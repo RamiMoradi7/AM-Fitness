@@ -1,6 +1,6 @@
 class AppConfig {
   // Backend urls:
-  private readonly appBaseUrl = "https:/am-fitness.onrender.com";
+  private readonly appBaseUrl = "https://am-fitness-server.onrender.com/api";
   public readonly csrfTokenUrl = `${this.appBaseUrl}/csrf-token`;
   public readonly contactUsUrl = `${this.appBaseUrl}/contact-us/`;
   public readonly loginUrl = `${this.appBaseUrl}/login/`;
