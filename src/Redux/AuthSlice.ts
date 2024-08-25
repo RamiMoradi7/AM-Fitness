@@ -34,14 +34,4 @@ const authSlice = createSlice({
 export const authActions = authSlice.actions;
 export const authReducers = authSlice.reducer;
 
-const selectAuthState = (state: AppState) => state.auth;
-
-export const selectUser = createSelector(
-  [selectAuthState],
-  (authState) => authState.user
-);
-
-export const selectIsAuthenticated = createSelector(
-  [selectAuthState],
-  (authState) => authState.isAuthenticated
-);
+export const selectAuthState = (state: AppState) => state.auth;

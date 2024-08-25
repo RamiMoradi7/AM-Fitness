@@ -5,11 +5,13 @@ import Home from "../../HomeArea/Home/Home";
 import Page404 from "../page404/page404";
 import ProtectedRoute from "./ProtectedRoute";
 import ResetPassword from "../../Auth/ResetPassword";
+import AdminDashboard from "../../AdminDashboard/AdminDashboard";
 
 type RouteProps = {
     path: string
     element: JSX.Element
     isProtected?: boolean
+    requiredRole?: number
 }
 
 function Routing(): JSX.Element {
@@ -23,9 +25,15 @@ function Routing(): JSX.Element {
             element: <Home />,
         },
         {
+            path: '/admin-dashboard/*',
+            element: <AdminDashboard />,
+            isProtected: true,
+            requiredRole: 1
+        },
+        {
             path: '/application',
             element: <App />,
-            isProtected: true
+            isProtected: true,
         },
         {
             path: '/auth',
@@ -45,13 +53,13 @@ function Routing(): JSX.Element {
     return (
         <div className="min-h-screen">
             <Routes>
-                {routes.map(({ path, element, isProtected }) => (
+                {routes.map(({ path, element, isProtected, requiredRole }) => (
                     <Route
                         key={path}
                         path={path}
                         element={
                             isProtected ? (
-                                <ProtectedRoute element={element} />
+                                <ProtectedRoute element={element} requiredRole={requiredRole} />
                             ) : (
                                 element
                             )

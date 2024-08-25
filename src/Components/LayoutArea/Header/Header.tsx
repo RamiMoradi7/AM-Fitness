@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { selectUser } from '../../../Redux/AuthSlice';
+import { selectAuthState } from '../../../Redux/AuthSlice';
 import { authService } from '../../../Services/AuthService';
 import MenuButton from './MenuButton';
 
 export default function Header(): JSX.Element {
     const [isOpen, setIsOpen] = useState(false);
-    const user = useSelector(selectUser);
+    const { user } = useSelector(selectAuthState);
     const location = useLocation();
+
+    const isAdmin = user?.roleId === 1
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -24,7 +26,8 @@ export default function Header(): JSX.Element {
         { title: "דף הבית", link: "/", hash: "#home" },
         { title: "קצת עליי", link: "/", hash: "#about" },
         { title: "צור קשר", link: "/", hash: "#contact-us" },
-        user && { title: "האיזור שלי", link: "/application" },
+        user && !isAdmin && { title: "האיזור שלי", link: "/application" },
+        isAdmin && { title: "ממשק משתמש", link: "/admin-dashboard/" },
         user ? { title: "התנתק", link: "/auth", onClick: handleSignOut } : { title: "התחברות", link: "/auth" },
     ].filter(Boolean);
 

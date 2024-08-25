@@ -16,7 +16,7 @@ export default function LoginForm(): JSX.Element {
             const userName = appStore.getState().auth.user.firstName
             toast.success(`ברוך שובך ${userName} !`)
             reset()
-            navigate("/application")
+            navigate("/")
         } catch (err: any) {
             const errMessage = err.response?.data || "Some error accoured."
             toast.error(errMessage)

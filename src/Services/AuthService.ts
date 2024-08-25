@@ -15,12 +15,9 @@ class AuthService {
       appStore.dispatch(authActions.login(loggedInUser));
     }
   }
-  public async register(user: User): Promise<void> {
+  public async register(user: Partial<User>): Promise<void> {
     const response = await axios.post<string>(appConfig.registerUrl, user);
     const token = response.data;
-    const registeredUser = jwtDecode<{ user: User }>(token).user;
-    appStore.dispatch(authActions.register(registeredUser));
-    sessionStorage.setItem("token", token);
   }
   public async login(credentials: Credentials): Promise<void> {
     const response = await axios.post<string>(appConfig.loginUrl, credentials);

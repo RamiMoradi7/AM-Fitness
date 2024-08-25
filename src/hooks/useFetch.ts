@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 type Status = "loading" | "error" | "idle";
 
 export const useFetch = <T>(fnQuery: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<Status>("idle");
-
 
   const fetchData = async () => {
     try {
@@ -16,7 +14,7 @@ export const useFetch = <T>(fnQuery: () => Promise<T>) => {
       setStatus("idle");
     } catch (err: any) {
       setStatus("error");
-      toast.error(err);
+      console.error(err);
     }
   };
 
