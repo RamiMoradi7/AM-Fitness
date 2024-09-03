@@ -14,13 +14,6 @@
 //   public readonly validateResetPasswordToken = `${this.appBaseUrl}/validate-reset-token/`;
 //   public readonly changePassword = `${this.appBaseUrl}/change-password/`;
 
-//   public readonly axiosOptions = {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//   };
-// }
-
 class AppConfig {
   // Backend urls:
   private readonly appBaseUrl = "https://am-fitness-server.onrender.com/api";
@@ -36,6 +29,12 @@ class AppConfig {
   public readonly resetPasswordRequest = `${this.appBaseUrl}/password-reset-request/`;
   public readonly validateResetPasswordToken = `${this.appBaseUrl}/validate-reset-token/`;
   public readonly changePassword = `${this.appBaseUrl}/change-password/`;
+
+  public readonly axiosOptions = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
 }
 
 export const appConfig = new AppConfig();
