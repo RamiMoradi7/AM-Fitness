@@ -5,14 +5,24 @@ import { appConfig } from "../Utils/AppConfig";
 import { jwtDecode } from "jwt-decode";
 import { appStore } from "../Redux/Store";
 import { authActions } from "../Redux/AuthSlice";
+import { usersService } from "./UsersService";
 
 class AuthService {
   public constructor() {
     const token = sessionStorage.getItem("token");
     if (token) {
-      const loggedInUser = jwtDecode<{ user: User }>(token).user;
-      console.log(loggedInUser);
-      appStore.dispatch(authActions.login(loggedInUser));
+      this.initializeUser(token);
+    }
+  }
+
+  private async initializeUser(token: string): Promise<void> {
+    try {
+      const { _id: userId } = jwtDecode<{ user: User }>(token).user;
+      const user = await usersService.getUser(userId);
+      appStore.dispatch(authActions.login(user));
+    } catch (err) {
+      console.error("Failed to initialize user:", err);
+      this.logOut();
     }
   }
   public async register(user: Partial<User>): Promise<void> {
@@ -20,12 +30,18 @@ class AuthService {
     const token = response.data;
   }
   public async login(credentials: Credentials): Promise<void> {
+    // Getting token.
     const response = await axios.post<string>(appConfig.loginUrl, credentials);
     const token = response.data;
-    const loggedInUser = jwtDecode<{ user: User }>(token).user;
-    appStore.dispatch(authActions.login(loggedInUser));
+
+    // Extract userId from token.
+    const { _id: userId } = jwtDecode<{ user: User }>(token).user;
+    if (!userId) throw new Error("משתמש לא קיים.");
+
+    // Fetch user info.
+    const user = await usersService.getUser(userId);
+    appStore.dispatch(authActions.login(user));
     sessionStorage.setItem("token", token);
-    console.log(loggedInUser);
   }
   public logOut(): void {
     appStore.dispatch(authActions.logOut());

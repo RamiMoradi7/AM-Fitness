@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type Status = "loading" | "error" | "idle";
+export type Status = "loading" | "error" | "idle";
 
 export const useFetch = <T>(fnQuery: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);

@@ -1,15 +1,17 @@
-import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { User } from "../Models/User";
 import { AppState } from "./AppState";
 
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
+  isLoading: true,
 };
 
 const authSlice = createSlice({
@@ -19,14 +21,20 @@ const authSlice = createSlice({
     register(state, action: PayloadAction<User>) {
       state.user = action.payload;
       state.isAuthenticated = true;
+      state.isLoading = false;
     },
     login(state, action: PayloadAction<User>) {
       state.user = action.payload;
       state.isAuthenticated = true;
+      state.isLoading = false;
     },
     logOut(state) {
       state.isAuthenticated = false;
       state.user = null;
+      state.isLoading = false;
+    },
+    setAuthLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
   },
 });

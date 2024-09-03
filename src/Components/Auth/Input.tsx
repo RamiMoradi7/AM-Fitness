@@ -2,9 +2,9 @@ import { ComponentProps } from "react";
 import { Control } from "react-hook-form";
 
 type InputProps = ComponentProps<"input"> & {
-    control: Control<any>;
+    control?: Control<any>;
     name: string;
-    type: "text" | "email" | "password" | "textarea";
+    type: "text" | "email" | "password" | "textarea" | "number";
     placeholder: string;
     icon?: JSX.Element;
     error?: string;

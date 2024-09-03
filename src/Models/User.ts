@@ -1,3 +1,5 @@
+import { TrainingPlan } from "./TrainingPlan";
+
 export class User {
   _id: string;
   firstName: string;
@@ -14,7 +16,7 @@ export class User {
   createdAt?: Date;
   updatedAt?: Date;
   roleId: number;
+  image: File;
   imageUrl: string;
-  //   trainingPlans?: Schema.Types.ObjectId[];
-  //   dietaryMenus?: Schema.Types.ObjectId[];
+  trainingPlans?: TrainingPlan[];
 }

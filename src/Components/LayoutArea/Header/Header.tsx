@@ -41,7 +41,7 @@ export default function Header(): JSX.Element {
     }, [location.hash]);
 
     return (
-        <nav className="top-0 fixed  z-50 w-full flex flex-wrap items-center justify-between px-4 py-5 bg-black">
+        <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center bg-gradient-to-t from-gray-900 to-black justify-between px-4 py-5 ">
             <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
                 <div className="w-full flex items-center justify-between lg:w-auto lg:static lg:justify-between">
                     <div className="lg:hidden">
@@ -59,7 +59,7 @@ export default function Header(): JSX.Element {
                         Matan Amrani Fitness
                     </p>
                 </div>
-                <div className={`lg:flex flex-grow items-center lg:bg-black lg:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
+                <div className={`lg:flex flex-grow items-center lg:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
                     <ul onClick={handleToggle} className="flex flex-col lg:flex-row list-none lg:ml-auto">
                         {menuItems.map((item) => (
                             <MenuButton
