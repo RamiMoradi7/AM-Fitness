@@ -2,12 +2,13 @@ import { Control } from "react-hook-form"
 import { Exercise } from "../../../Models/Exercise"
 import { TrainingPlan } from "../../../Models/TrainingPlan"
 import Input from "../../Auth/Input"
+import { DayWithExercise } from "../../../hooks/useTrainingPlanForm"
 
 type DaySectionProps = {
     dayIndex: number
     control: Control<TrainingPlan>;
     onRemoveDay: () => void
-    selectedExercises: Exercise[];
+    selectedExercises: DayWithExercise[];
     removeExercise: (excId: string, dayIndex: number) => void
     handleCategoryChange: (e: React.ChangeEvent<HTMLSelectElement>, dayIndex: number) => Promise<void>
     exercises: Exercise[]
@@ -54,7 +55,7 @@ export default function DaySection({
                         <div className="p-4 bg-white rounded-lg shadow-lg">
                             <h3 className="text-xl font-semibold mb-2">תרגילים שנבחרו:</h3>
                             <div className="flex flex-wrap gap-2">
-                                {selectedExercises?.map((exercise) => (
+                                {selectedExercises?.map(({ exercise }) => (
                                     <div
                                         key={exercise._id}
                                         className="flex items-center bg-gray-100 rounded-full px-4 py-2 shadow-md hover:bg-gray-200 transition-colors duration-300"

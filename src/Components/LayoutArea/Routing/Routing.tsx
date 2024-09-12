@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../../../pages/Home";
 import Login from "../../../pages/Login";
 import AdminDashboard from "../../AdminDashboard/AdminDashboard";
-import App from "../../App/App";
+import EditTrainingPlan from "../../AdminDashboard/TrainingPlans/EditTrainingPlan";
+import UserDashboard from "../../App/UserDashboard";
 import ResetPassword from "../../Auth/ResetPassword";
 import Page404 from "../page404/page404";
 import ProtectedRoute from "./ProtectedRoute";
@@ -32,7 +33,13 @@ function Routing(): JSX.Element {
         },
         {
             path: '/application',
-            element: <App />,
+            element: <UserDashboard />,
+            isProtected: true,
+            requiredRole: 2
+        },
+        {
+            path: "/training-programs/edit/:_id/week/:weekId",
+            element: <EditTrainingPlan />,
             isProtected: true,
         },
         {

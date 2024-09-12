@@ -5,11 +5,9 @@ export default function About(): JSX.Element {
     return (
         <section className="bg-black">
             <div className="flex flex-wrap items-center">
-                <div id='about' className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="fade-right">
-                    <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                        <i className="fas fa-hand-holding-heart text-green-500 text-xl"></i>
-                    </div>
-                    <h3 className="text-3xl md:text-4xl text-green-500 mb-2 font-semibold leading-normal">
+                <div id='about' className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="fade-left">
+
+                    <h3 className="mt-8 text-3xl md:text-4xl text-green-500 mb-2 font-semibold leading-normal">
                         הסיפור שלי                    </h3>
                     <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-white">
                         אי פעם חלמתם על גוף בריא, חזק, חטוב ובאחוז שומן נמוך?<br />

@@ -20,6 +20,7 @@ class AuthService {
       const { _id: userId } = jwtDecode<{ user: User }>(token).user;
       const user = await usersService.getUser(userId);
       appStore.dispatch(authActions.login(user));
+      sessionStorage.setItem("token", token);
     } catch (err) {
       console.error("Failed to initialize user:", err);
       this.logOut();

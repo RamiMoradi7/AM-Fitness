@@ -11,7 +11,7 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
 };
 
 const authSlice = createSlice({

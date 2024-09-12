@@ -41,7 +41,7 @@ export default function LoginForm(): JSX.Element {
     }
 
     return (
-        <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
+        <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8" id="login">
             <div className="w-full px-8 md:px-32 lg:px-24">
                 <form onSubmit={handleSubmit(login)} className="bg-white rounded-md shadow-2xl p-5">
                     <h1 className="text-gray-800 font-bold text-2xl mb-1">התחברות </h1>

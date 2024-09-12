@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { selectAuthState } from '../../../Redux/AuthSlice';
 import { authService } from '../../../Services/AuthService';
 import MenuButton from './MenuButton';
+import logo from "../../../Assets/Images/AMFitnessLogo.png"
 
 export default function Header(): JSX.Element {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,9 +27,9 @@ export default function Header(): JSX.Element {
         { title: "דף הבית", link: "/", hash: "#home" },
         { title: "קצת עליי", link: "/", hash: "#about" },
         { title: "צור קשר", link: "/", hash: "#contact-us" },
-        user && !isAdmin && { title: "האיזור שלי", link: "/application" },
-        isAdmin && { title: "ממשק משתמש", link: "/admin-dashboard/" },
-        user ? { title: "התנתק", link: "/auth", onClick: handleSignOut } : { title: "התחברות", link: "/auth" },
+        user && !isAdmin && { title: "האיזור שלי", link: "/application", hash: "#my-area" },
+        isAdmin && { title: "ממשק מנהל", link: "/admin-dashboard/" },
+        user ? { title: "התנתק", link: "/auth", onClick: handleSignOut } : { title: "התחברות", link: "/auth", hash: "#login" },
     ].filter(Boolean);
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export default function Header(): JSX.Element {
                     <p className="text-lg font-bold leading-relaxed py-2 whitespace-nowrap uppercase text-green-500">
                         Matan Amrani Fitness
                     </p>
+
                 </div>
                 <div className={`lg:flex flex-grow items-center lg:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
                     <ul onClick={handleToggle} className="flex flex-col lg:flex-row list-none lg:ml-auto">

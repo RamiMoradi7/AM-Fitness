@@ -12,7 +12,7 @@ export default function ProtectedRoute({ element, requiredRole }: ProtectedRoute
     const { isAuthenticated, user, isLoading } = useSelector(selectAuthState);
     const location = useLocation();
 
-    if (isLoading) {
+    if (isLoading || (!isAuthenticated && user === null)) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <Loader />
@@ -23,6 +23,7 @@ export default function ProtectedRoute({ element, requiredRole }: ProtectedRoute
     if (!isAuthenticated) {
         return <Navigate to={"/auth"} state={{ from: location }} replace />;
     }
+
 
     if (requiredRole && user.roleId !== requiredRole) {
         return <Navigate to={"/"} replace />;

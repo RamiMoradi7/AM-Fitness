@@ -1,22 +1,39 @@
 import { useSelector } from "react-redux";
-import TrainingPlans from "../AdminDashboard/TrainingPlans/TrainingPlans";
+import TrainingPlans from "../AdminDashboard/TrainingPlans/Plans/TrainingPlans";
 import { selectAuthState } from "../../Redux/AuthSlice";
 import { useState } from "react";
 import Modal from "../Common/Modal";
 import EditProfile from "./EditProfile";
 import WeeklyFitnessData from "./WeeklyFitnessData";
+import { useTitle } from "../../hooks/useTitle";
+import { useFetch } from "../../hooks/useFetch";
+import { trainingPlansService } from "../../Services/TrainingPlansService";
+import Loader from "../Common/Loader/Loader";
 
 export default function UserDashboard(): JSX.Element {
-    const trainingPlans = useSelector(selectAuthState).user.trainingPlans
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    useTitle("האיזור שלי")
+    const { user } = useSelector(selectAuthState);
+    const { data: trainingPlans, status } = useFetch(() => trainingPlansService.getTrainingPlans(user?._id))
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const toggleModal = () => setIsModalOpen(!isModalOpen)
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-    return (<>
-        <div className="w-full  mx-auto p-4">
-            <div className="bg-white p-6 rounded-xl shadow-lg">
+    return (
+        <div className="w-full mx-auto p-4" id="my-area">
+            <div className="bg-white p-8 rounded-xl shadow-lg max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
-                    <div className="text-gray-600 text-lg font-semibold">האיזור שלי</div>
+                    <div className="flex items-center">
+                        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 shadow-md">
+                            <img
+                                src={user?.imageUrl || "/default-avatar.jpg"}
+                                alt="User Profile"
+                                className="object-cover w-full h-full"
+                            />
+                        </div>
+                        <div className="ml-4 text-gray-800 text-xl font-semibold">
+                            /  האיזור שלי
+                        </div>
+                    </div>
                     <div className="flex space-x-4">
                         <button className="p-2 rounded-full hover:bg-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,12 +48,22 @@ export default function UserDashboard(): JSX.Element {
                         </button>
                     </div>
                 </div>
-
-                <div className="text-4xl font-thin mb-4">תכניות אימונים</div>
-                <TrainingPlans trainingPlans={trainingPlans} />
-                {isModalOpen && <Modal children={<EditProfile />} isOpen={isModalOpen} toggleModal={toggleModal} />}
-                <WeeklyFitnessData />
+                <div className="mb-8">
+                    <div className="text-2xl font-semibold text-gray-700">תכניות אימונים</div>
+                    <div className="mt-4">
+                        {status === "loading" && <Loader />}
+                        <TrainingPlans trainingPlans={trainingPlans} />
+                    </div>
+                </div>
+                <div className="mt-8">
+                    <WeeklyFitnessData />
+                </div>
+                {isModalOpen && (
+                    <Modal isOpen={isModalOpen} toggleModal={toggleModal}>
+                        <EditProfile />
+                    </Modal>
+                )}
             </div>
         </div>
-    </>)
+    );
 }

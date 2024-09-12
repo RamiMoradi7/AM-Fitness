@@ -2,7 +2,7 @@ export default function HighlightsSection(): JSX.Element {
     return (<section className="pb-20 bg-black">
         <div className="container mx-auto px-4 max-w-screen-xl">
             <div className="flex flex-wrap">
-                <div className="w-full  md:w-4/12 px-4 text-center" data-aos="fade-up">
+                <div className="w-full  md:w-4/12 px-4 text-center" data-aos="fade-down">
                     <div className="relative flex flex-col min-w-0 break-words  w-full mb-8 shadow-lg rounded-full transform transition duration-500 hover:scale-105 hover:shadow-2xl">
                         <div className="px-4 py-5 flex-auto ">
                             <div className="text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-green-500">
@@ -28,7 +28,7 @@ export default function HighlightsSection(): JSX.Element {
                         </div>
                     </div>
                 </div>
-                <div className="w-full md:w-4/12 px-4 text-center" data-aos="fade-up">
+                <div className="w-full md:w-4/12 px-4 text-center" data-aos="fade-down">
                     <div className="relative flex flex-col min-w-0  break-words  w-full mb-8 shadow-lg rounded-full transform transition duration-500 hover:scale-105 hover:shadow-2xl">
                         <div className="px-4 py-5 flex-auto">
                             <div className="text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-yellow-500">

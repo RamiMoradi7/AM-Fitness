@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
-export type Status = "loading" | "error" | "idle";
+export type Status = "loading" | "error" | "idle" | "success";
 
-export const useFetch = <T>(fnQuery: () => Promise<T>) => {
+export const useFetch = <T>(
+  fnQuery: () => Promise<T>,
+  dependencies?: string
+) => {
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<Status>("idle");
 
@@ -20,7 +23,7 @@ export const useFetch = <T>(fnQuery: () => Promise<T>) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dependencies]);
 
   return { data, setData, status };
 };

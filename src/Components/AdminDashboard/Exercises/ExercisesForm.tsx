@@ -9,6 +9,8 @@ type ExercisesFormProps = {
 
 }
 
+const exerciseCategories = ["ידיים", "רגליים", "גב", "כתפיים", "חזה"]
+
 export default function ExercisesForm({ onSubmit, initialValue }: ExercisesFormProps): JSX.Element {
     const { handleSubmit, control, formState: { isSubmitting }, reset } = useForm<Exercise>()
     const { fields, append, remove } = useFieldArray({ control, name: "notes" })
@@ -64,13 +66,15 @@ export default function ExercisesForm({ onSubmit, initialValue }: ExercisesFormP
                             />
                         </div>
                         <div className="space-y-1">
-                            <label className="block text-sm font-medium text-gray-700">קטגוריה</label>
-                            <Input
-                                control={control}
-                                name="category"
-                                placeholder="קטגוריה"
-                                type="text"
-                            />
+                            <label className="block text-gray-700 font-semibold mb-2">בחר קטגוריה</label>
+                            <select
+                                defaultValue=""
+                                {...control.register("category")}
+                                className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="" disabled>בחר קטגוריה</option>
+                                {exerciseCategories?.map((category) => <option key={category} value={category}>{category}</option>)}
+                            </select>
                         </div>
                     </div>
                     <div className="space-y-4">

@@ -1,44 +1,56 @@
-import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { TrainingPlan } from "../../../Models/TrainingPlan"
-import { trainingPlansService } from "../../../Services/TrainingPlansService"
-import Loader from "../../Common/Loader/Loader"
-import TrainingPlanForm from "./TrainingPlanForm"
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { useFetch } from "../../../hooks/useFetch";
+import { TrainingPlan } from "../../../Models/TrainingPlan";
+import { trainingPlansService } from "../../../Services/TrainingPlansService";
+import Error from "../../Common/Error/Error";
+import Loader from "../../Common/Loader/Loader";
+import TrainingPlanForm from "./TrainingPlanForm";
+import { useSelector } from "react-redux";
+import { selectAuthState } from "../../../Redux/AuthSlice";
 
 export default function EditTrainingPlan(): JSX.Element {
-    const { _id } = useParams<{ _id: string }>()
-    const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null)
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        trainingPlansService.getTrainingPlan(_id)
-            .then((plan) => setTrainingPlan(plan))
-            .catch((err: any) => console.error(err))
-    }, [_id])
-
+    const { _id, weekId } = useParams<{ _id: string, weekId: string }>();
+    const { data: trainingPlan, status } = useFetch(() => trainingPlansService.getTrainingPlan(_id), _id);
+    const navigate = useNavigate();
+    const { roleId } = useSelector(selectAuthState).user
     const editTrainingPlan = async (trainingPlan: TrainingPlan) => {
         try {
-            const { firstName, _id } = trainingPlan.user
-            console.log(trainingPlan._id)
-            await trainingPlansService.editTrainingPlan(trainingPlan)
-            toast.success(`תכנית האימונים של ${firstName} עודכנה בהצלחה.`)
-            navigate(`/admin-dashboard/user/${_id}`)
-
+            const { firstName, _id: userId } = trainingPlan.user
+            delete trainingPlan.weeks
+            console.log(trainingPlan)
+            await trainingPlansService.editTrainingPlan(trainingPlan, weekId);
+            toast.success(`תכנית האימונים של ${firstName} עודכנה בהצלחה.`);
+            roleId === 1 ? navigate(`/admin-dashboard/user/${userId}`) :
+                navigate(`/application`);
 
         } catch (error: any) {
-            const errMsg = error.response?.data || "משהו השתבש, נסה שנית מאוחר יותר."
-            toast.error(errMsg)
+            console.log(error)
+            const errMsg = error.response?.data || "משהו השתבש, נסה שנית מאוחר יותר.";
+            toast.error(errMsg);
         }
+    };
+
+    if (status === "loading") {
+        return <Loader />;
     }
 
-    return (<>{
-        trainingPlan ?
-            <TrainingPlanForm
-                mode="edit"
-                onSubmit={editTrainingPlan}
-                defaultValues={trainingPlan}
-            /> :
-            <Loader />}
-    </>)
+    if (status === "error") {
+        return <Error />;
+    }
+
+    return (
+        <>
+            {trainingPlan && (
+                <div className="mt-14">
+                    <TrainingPlanForm
+                        mode="edit"
+                        onSubmit={editTrainingPlan}
+                        defaultValues={trainingPlan}
+                        weekIndex={weekId}
+                    />
+                </div>
+            )}
+        </>
+    );
 }

@@ -5,6 +5,7 @@ import { selectAuthState } from "../../Redux/AuthSlice"
 
 export default function WeeklyFitnessData(): JSX.Element {
     const user = useSelector(selectAuthState).user
+    console.log(user?._id)
     const { data: weeklyFitnessData } = useFetch(() => fitnessDataService.getRecentWeekFitnessData(user?._id))
 
     console.log(weeklyFitnessData)
