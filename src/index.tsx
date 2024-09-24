@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { appStore } from './Redux/Store';
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 import { interceptors } from './Utils/Interceptors';
+import { useEffect } from 'react';
 
 if (process.env.NODE_ENV === "production") disableReactDevTools()
 const root = ReactDOM.createRoot(

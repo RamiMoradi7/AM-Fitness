@@ -55,6 +55,25 @@ class AuthService {
     });
   }
 
+  public async getCsrfToken(): Promise<string> {
+    try {
+      const response = await axios.get<{ csrfToken: string }>(
+        appConfig.csrfTokenUrl,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (!response.data) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+      return response.data.csrfToken;
+    } catch (error) {
+      console.error("Error fetching CSRF token:", error);
+      throw error; // Re-throw the error for the calling component to handle
+    }
+  }
+
   public async validateResetPasswordToken(token: string): Promise<boolean> {
     const response = await axios.post<{ valid: boolean }>(
       appConfig.validateResetPasswordToken,

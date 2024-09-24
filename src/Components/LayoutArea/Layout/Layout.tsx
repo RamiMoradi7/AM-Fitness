@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
-import Routing from "../Routing/Routing";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import Routing from "../Routing/Routing";
 
 function Layout(): JSX.Element {
     return (
