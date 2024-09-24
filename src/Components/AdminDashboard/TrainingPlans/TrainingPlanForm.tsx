@@ -17,7 +17,7 @@ type TrainingPlanFormTypes = {
 }
 
 
-export default function TrainingPlanForm({ defaultValues, weekIndex, onSubmit, status, users, mode }: TrainingPlanFormTypes): JSX.Element {
+export default function TrainingPlanForm({ defaultValues, onSubmit, status, users, mode }: TrainingPlanFormTypes): JSX.Element {
     const {
         appendDay,
         control,
@@ -30,7 +30,7 @@ export default function TrainingPlanForm({ defaultValues, weekIndex, onSubmit, s
         removeDay,
         removeExercise,
         selectedExercisesByDay
-    } = useTrainingPlanForm(defaultValues, weekIndex)
+    } = useTrainingPlanForm(defaultValues)
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 via-green-500 to-green-600 py-12">
@@ -57,20 +57,21 @@ export default function TrainingPlanForm({ defaultValues, weekIndex, onSubmit, s
                             className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    {dayFields.map((dayField, index) =>
-                        <DaySection
-                            key={dayField.id}
-                            control={control}
-                            dayIndex={index}
-                            exercises={filteredExercisesByDay[index]}
-                            handleCategoryChange={handleCategoryChange}
-                            handleSelectExercise={handleSelectExercise}
-                            onRemoveDay={() => removeDay(index)}
-                            removeExercise={removeExercise}
-                            selectedExercises={selectedExercisesByDay[index]}
+                    {mode === "add" && <>
+                        {dayFields.map((dayField, index) =>
+                            <DaySection
+                                key={dayField.id}
+                                control={control}
+                                dayIndex={index}
+                                exercises={filteredExercisesByDay[index]}
+                                handleCategoryChange={handleCategoryChange}
+                                handleSelectExercise={handleSelectExercise}
+                                onRemoveDay={() => removeDay(index)}
+                                removeExercise={removeExercise}
+                                selectedExercises={selectedExercisesByDay[index]}
 
-                        />)}
-
+                            />)}
+                    </>}
                     <FormActions
                         onAppendDay={() => appendDay({ dayOfWeek: "", exercises: [] })}
                         isSubmitting={isSubmitting}

@@ -1,11 +1,16 @@
+import { useState } from "react";
 import homepageWallpaper from "../../../Assets/Images/matan.jpg";
-
 export default function HeroSection(): JSX.Element {
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    const handleImageLoad = () => {
+        setIsImageLoaded(true);
+    };
+
     return (
-        <div className="relative flex content-start items-start justify-start  min-h-screen lg:min-h-[95vh]">
-            {/* Background Image */}
+        <div className="relative flex content-start items-start justify-start min-h-screen lg:min-h-[95vh]">
             <div
-                className="absolute w-full h-full bg-cover bg-center"
+                className={`absolute w-full h-full bg-cover bg-center transition-opacity duration-500 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 style={{
                     backgroundImage: `url(${homepageWallpaper})`,
                 }}
@@ -13,7 +18,17 @@ export default function HeroSection(): JSX.Element {
                 <span id="blackOverlay" className="w-full h-full absolute opacity-40 bg-black"></span>
             </div>
 
-            {/* Content */}
+            {!isImageLoaded && (
+                <div className="absolute w-full h-full bg-gray-200 animate-pulse"></div>
+            )}
+
+            <img
+                src={homepageWallpaper}
+                alt="Hero Background"
+                className="hidden"
+                onLoad={handleImageLoad}
+            />
+
             <div className="container relative mx-auto px-4 pt-16 lg:mt-20 lg:ml-96">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-6/12 px-4 text-center" data-aos="fade-in">

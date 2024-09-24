@@ -10,7 +10,7 @@ export default function DashboardHeader({ sidebarOpen, toggleSidebar }: Dashboar
     const navigate = useNavigate();
 
     return (
-        <nav className="bg-white border-b border-gray-200 fixed mt-10 z-30 w-full transition-transform duration-300 ease-in-out">
+        <nav className="bg-white border-b border-gray-200 fixed mt-2 z-30 w-full transition-transform duration-300 ease-in-out">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">

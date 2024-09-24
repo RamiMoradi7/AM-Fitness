@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { selectAuthState } from "../../../Redux/AuthSlice";
-import Loader from "../../Common/Loader/Loader";
+import Loader from "../../Common/Loaders/Loader";
 
 type ProtectedRouteProps = {
     element: JSX.Element;
@@ -19,6 +19,7 @@ export default function ProtectedRoute({ element, requiredRole }: ProtectedRoute
             </div>
         );
     }
+
 
     if (!isAuthenticated) {
         return <Navigate to={"/auth"} state={{ from: location }} replace />;

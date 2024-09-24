@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { selectAuthState } from '../../../Redux/AuthSlice';
 import { authService } from '../../../Services/AuthService';
 import MenuButton from './MenuButton';
-import logo from "../../../Assets/Images/AMFitnessLogo.png"
 
 export default function Header(): JSX.Element {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,10 +24,10 @@ export default function Header(): JSX.Element {
 
     const menuItems = [
         { title: "דף הבית", link: "/", hash: "#home" },
-        { title: "קצת עליי", link: "/", hash: "#about" },
+        { title: "הסיפור שלי", link: "/", hash: "#about" },
         { title: "צור קשר", link: "/", hash: "#contact-us" },
         user && !isAdmin && { title: "האיזור שלי", link: "/application", hash: "#my-area" },
-        isAdmin && { title: "ממשק מנהל", link: "/admin-dashboard/" },
+        isAdmin && { title: "ממשק מנהל", link: "/admin-dashboard/", hash: "#admin-dashboard" },
         user ? { title: "התנתק", link: "/auth", onClick: handleSignOut } : { title: "התחברות", link: "/auth", hash: "#login" },
     ].filter(Boolean);
 

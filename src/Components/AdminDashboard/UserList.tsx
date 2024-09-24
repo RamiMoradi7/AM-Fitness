@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { usersService } from "../../Services/UsersService";
 import Error from "../Common/Error/Error";
-import Loader from "../Common/Loader/Loader";
+import Loader from "../Common/Loaders/Loader";
 
 const UserList: React.FC = () => {
     const { data: users, status } = useFetch(usersService.getUsers);

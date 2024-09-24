@@ -6,11 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { appStore } from './Redux/Store';
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
+import { interceptors } from './Utils/Interceptors';
 
 if (process.env.NODE_ENV === "production") disableReactDevTools()
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
+interceptors.listen();
+
 root.render(
     <BrowserRouter>
         <Provider store={appStore}>

@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, set, useForm } from "react-hook-form";
 import { SetDetails } from "../../../../Models/TrainingPlan";
 import { useEffect } from "react";
 import { trainingPlansService } from "../../../../Services/TrainingPlansService";
@@ -6,27 +6,26 @@ import { trainingPlansService } from "../../../../Services/TrainingPlansService"
 type SetDetailsFormProps = {
     setDetails: SetDetails[]
     setEditIndex: React.Dispatch<React.SetStateAction<number>>
+    weekId: string
+    exerciseId: string
     editIndex: number
 }
 
 
-export default function SetDetailsForm({ setDetails, editIndex, setEditIndex }: SetDetailsFormProps): JSX.Element {
+export default function SetDetailsForm({ setDetails, editIndex, weekId, exerciseId, setEditIndex }: SetDetailsFormProps): JSX.Element {
     const { control, handleSubmit, reset } = useForm<SetDetails>({
         defaultValues: { weight: 0, reps: 0, effortLevel: 5 }
     });
-
     useEffect(() => {
         if (editIndex !== null) {
             reset(setDetails[editIndex]);
         }
     }, [editIndex, reset, setDetails]);
 
-    const onSubmit = async (data: SetDetails) => {
+    const onSubmit = async (newSetDetails: SetDetails) => {
         try {
-            console.log("Updated Set Details:", data);
-            const updatedSetDetails = [...setDetails];
-            // updatedSetDetails[editIndex!] = data;
-            await trainingPlansService.updateSetDetails(data);
+            console.log(newSetDetails)
+            await trainingPlansService.updateSetDetails(weekId, exerciseId, newSetDetails);
             setEditIndex(null);
         } catch (error) {
             console.error("Failed to update set details", error);
@@ -43,10 +42,12 @@ export default function SetDetailsForm({ setDetails, editIndex, setEditIndex }: 
                         control={control}
                         render={({ field }) => (
                             <input
+                                required
                                 type="number"
                                 {...field}
                                 className="border border-gray-300 px-4 py-2 rounded-lg w-full"
                                 placeholder="Enter weight"
+                                min={1}
                             />
                         )}
                     />
@@ -58,10 +59,12 @@ export default function SetDetailsForm({ setDetails, editIndex, setEditIndex }: 
                         control={control}
                         render={({ field }) => (
                             <input
+                                required
                                 type="number"
                                 {...field}
                                 className="border border-gray-300 px-4 py-2 rounded-lg w-full"
                                 placeholder="Enter reps"
+                                min={1}
                             />
                         )}
                     />
@@ -73,10 +76,13 @@ export default function SetDetailsForm({ setDetails, editIndex, setEditIndex }: 
                         control={control}
                         render={({ field }) => (
                             <input
+                                required
                                 type="number"
                                 {...field}
                                 className="border border-gray-300 px-4 py-2 rounded-lg w-full"
                                 placeholder="Enter effort level"
+                                min={1}
+                                max={10}
                             />
                         )}
                     />

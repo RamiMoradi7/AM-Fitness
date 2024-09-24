@@ -4,7 +4,7 @@ import { exerciseService } from "../../../Services/ExerciseService";
 import ExercisesForm from "./ExercisesForm";
 import { Exercise } from "../../../Models/Exercise";
 import toast from "react-hot-toast";
-import Loader from "../../Common/Loader/Loader";
+import Loader from "../../Common/Loaders/Loader";
 import Error from "../../Common/Error/Error";
 
 export default function EditExercise(): JSX.Element {

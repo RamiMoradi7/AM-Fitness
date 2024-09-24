@@ -46,7 +46,7 @@ class AuthService {
   }
   public logOut(): void {
     appStore.dispatch(authActions.logOut());
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
   }
 
   public async resetPasswordRequest(email: string): Promise<void> {

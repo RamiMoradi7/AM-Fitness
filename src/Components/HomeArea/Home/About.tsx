@@ -3,9 +3,9 @@ import beforeAfter from "../../../Assets/Images/before-after.jpg"
 export default function About(): JSX.Element {
 
     return (
-        <section className="bg-black">
+        <section className="bg-black" id="about" >
             <div className="flex flex-wrap items-center">
-                <div id='about' className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="fade-left">
+                <div className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="fade-left">
 
                     <h3 className="mt-8 text-3xl md:text-4xl text-green-500 mb-2 font-semibold leading-normal">
                         הסיפור שלי                    </h3>

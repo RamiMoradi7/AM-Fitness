@@ -18,5 +18,5 @@ export class User {
   roleId: number;
   image: File;
   imageUrl: string;
-  trainingPlans?: TrainingPlan[];
+  trainingPlans?: { _id: string; name: string }[];
 }

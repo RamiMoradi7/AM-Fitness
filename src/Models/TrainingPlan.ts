@@ -1,4 +1,5 @@
 import { Exercise } from "./Exercise";
+import { WeeklyFitnessData } from "./FitnessData";
 import { User } from "./User";
 
 export interface SetDetails {
@@ -11,13 +12,17 @@ export interface SetDetails {
 export interface Day {
   _id?: string;
   dayOfWeek: string;
-  exercises: { exercise: Exercise; setDetails?: SetDetails[] }[];
+  exercises: { exercise: Exercise; setDetails?: SetDetails[]; _id?: string }[];
 }
 
 export interface IWeek {
   _id: string;
+  trainingPlan: string;
   weekNumber: number;
   days: Day[];
+  startDate: Date;
+  weeklyFitnessData?: WeeklyFitnessData;
+  endDate: Date;
 }
 
 export class TrainingPlan {
@@ -32,3 +37,5 @@ export class TrainingPlan {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+  

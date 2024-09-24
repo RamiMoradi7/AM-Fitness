@@ -1,12 +1,11 @@
 import { Control } from "react-hook-form"
-import { Exercise } from "../../../Models/Exercise"
-import { TrainingPlan } from "../../../Models/TrainingPlan"
-import Input from "../../Auth/Input"
 import { DayWithExercise } from "../../../hooks/useTrainingPlanForm"
+import { Exercise } from "../../../Models/Exercise"
+import Input from "../../Auth/Input"
 
-type DaySectionProps = {
+type DaySectionProps<T> = {
     dayIndex: number
-    control: Control<TrainingPlan>;
+    control: Control<T>;
     onRemoveDay: () => void
     selectedExercises: DayWithExercise[];
     removeExercise: (excId: string, dayIndex: number) => void
@@ -17,7 +16,7 @@ type DaySectionProps = {
 
 const categories = ["גב", "כתפיים", "ידיים", "רגליים", "חזה", "ישבן"]
 
-export default function DaySection({
+export default function DaySection<T>({
     dayIndex,
     control,
     onRemoveDay,
@@ -27,7 +26,7 @@ export default function DaySection({
     exercises,
     handleSelectExercise
 
-}: DaySectionProps): JSX.Element {
+}: DaySectionProps<T>): JSX.Element {
     return (
         <div className="space-y-8">
             <div className="bg-white p-6 border border-gray-300 rounded-xl shadow-lg transition-all hover:shadow-2xl hover:bg-gray-50">

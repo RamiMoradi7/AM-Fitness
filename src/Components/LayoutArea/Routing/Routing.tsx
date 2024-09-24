@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
+import AdminDashboard from "../../../pages/AdminDashboard";
 import Home from "../../../pages/Home";
 import Login from "../../../pages/Login";
-import AdminDashboard from "../../AdminDashboard/AdminDashboard";
-import EditTrainingPlan from "../../AdminDashboard/TrainingPlans/EditTrainingPlan";
-import UserDashboard from "../../App/UserDashboard";
+import Page404 from "../../../pages/Page404";
+import UserDashboard from "../../../pages/UserDashboard";
+import EditPlanWeek from "../../AdminDashboard/TrainingPlans/EditPlanWeek";
 import ResetPassword from "../../Auth/ResetPassword";
-import Page404 from "../page404/page404";
 import ProtectedRoute from "./ProtectedRoute";
 
 type RouteProps = {
@@ -39,7 +39,7 @@ function Routing(): JSX.Element {
         },
         {
             path: "/training-programs/edit/:_id/week/:weekId",
-            element: <EditTrainingPlan />,
+            element: <EditPlanWeek />,
             isProtected: true,
         },
         {

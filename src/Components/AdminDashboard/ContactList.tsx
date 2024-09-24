@@ -1,7 +1,7 @@
 import { useFetch } from "../../hooks/useFetch";
 import { contactUsService } from "../../Services/ContactUsService";
 import Error from "../Common/Error/Error";
-import Loader from "../Common/Loader/Loader";
+import Loader from "../Common/Loaders/Loader";
 
 
 

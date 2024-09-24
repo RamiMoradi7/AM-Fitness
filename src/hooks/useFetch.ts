@@ -14,10 +14,11 @@ export const useFetch = <T>(
       setStatus("loading");
       const data = await fnQuery();
       setData(data);
-      setStatus("idle");
+      setStatus("success");
     } catch (err: any) {
       setStatus("error");
       console.error(err);
+    } finally {
     }
   };
 

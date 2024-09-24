@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Exercise } from "../Models/Exercise";
-import { SetDetails, TrainingPlan } from "../Models/TrainingPlan";
+import { IWeek, SetDetails } from "../Models/TrainingPlan";
 import { exerciseService } from "../Services/ExerciseService";
 
 export interface DayWithExercise {
@@ -10,9 +10,7 @@ export interface DayWithExercise {
   setDetails?: SetDetails[];
 }
 
-export const useTrainingPlanForm = (
-  initialValues?: TrainingPlan,
-) => {
+export const useEditWeek = (initialValues: IWeek, weekIndex: string) => {
   const {
     control,
     handleSubmit,
@@ -20,7 +18,7 @@ export const useTrainingPlanForm = (
     formState: { isSubmitting },
     getValues,
     reset,
-  } = useForm<TrainingPlan>({
+  } = useForm<IWeek>({
     defaultValues: { days: [{ dayOfWeek: "", exercises: [] }] },
   });
 
@@ -28,13 +26,28 @@ export const useTrainingPlanForm = (
     fields: dayFields,
     append: appendDay,
     remove: removeDay,
+    replace: replaceDays,
   } = useFieldArray({ control, name: "days" });
 
   useEffect(() => {
     if (initialValues) {
       reset(initialValues);
+      if (initialValues) {
+        const updatedSelectedExercises = initialValues.days.reduce(
+          (acc, day, index) => {
+            acc[index] = day.exercises.map((e) => ({
+              exercise: e.exercise,
+              setDetails: e.setDetails,
+            }));
+            return acc;
+          },
+          ({} as { [key: number]: DayWithExercise[] }) || {}
+        );
+        setSelectedExercisesByDay(updatedSelectedExercises);
+        replaceDays(initialValues.days);
+      }
     }
-  }, [initialValues, reset]);
+  }, [initialValues, weekIndex, reset]);
 
   const [filteredExercisesByDay, setFilteredExercisesByDay] = useState<{
     [key: number]: Exercise[];
@@ -55,7 +68,7 @@ export const useTrainingPlanForm = (
     }
     const updatedExercises = [
       ...(selectedExercisesByDay[dayIndex] || []),
-      { exercise }, // Add the required structure
+      { exercise }, 
     ];
 
     setSelectedExercisesByDay((prev) => ({
