@@ -7,17 +7,21 @@ import axios from "axios";
 import { appConfig } from "../../../Utils/AppConfig";
 
 function Layout(): JSX.Element {
+
     useEffect(() => {
         const fetchCsrfToken = async () => {
-            const { data } = await axios.get(appConfig.csrfTokenUrl)
-            if (data.csrfToken) {
-                window.csrfToken = data.csrfToken;
-                console.log(window.csrfToken);
+            try {
+                const { data } = await axios.get(appConfig.csrfTokenUrl, { withCredentials: true });
+                if (data.csrfToken) {
+                    window.csrfToken = data.csrfToken;
+                    console.log('CSRF Token:', window.csrfToken);
+                }
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
             }
-        }
+        };
         fetchCsrfToken();
-    }, [])
-
+    }, []);
 
     return (
         <div className="bg-zinc-100 text-zinc-900">
