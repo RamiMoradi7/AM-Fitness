@@ -10,24 +10,21 @@ import { AppState } from "../../Redux/AppState";
 import WeekDetails from "../AdminDashboard/TrainingPlans/Plans/WeekDetails";
 import WeeklyFitnessData from "./WeeklyFitnessData/WeeklyFitnessData";
 import NoResults from "../Common/NoResults/NoResults";
+import { useTrainingPlan } from "../../hooks/useTrainingPlan";
+import SelectTrainingPlan from "../AdminDashboard/TrainingPlans/Plans/SelectTrainingPlan";
 
 export default function WeeklyFitnessSection(): JSX.Element {
-    const { _id: userId, trainingPlans: userTrainingPlans } = useSelector(selectAuthState).user
-    const hasTrainingPlans = userTrainingPlans?.length > 0;
-    const { status } = useFetch(() => hasTrainingPlans ? trainingPlansService.getCurrentWeeklyData(userId) : null);
+    const { user } = useSelector(selectAuthState)
+    const { isLoading: isFetchingData, trainingPlanId } = useTrainingPlan({ mode: "weeklyFitnessData" })
     const { currentWeek } = useSelector((appState: AppState) => appState.trainingPlans)
     const [fetchByDateStatus, setFetchByDateStatus] = useState<Status>("idle")
 
-
-
-    if (status === "loading") {
-        return <SkeletonLoader />
-    }
+    if (isFetchingData) return <SkeletonLoader />
 
     const handleDateChange = async (start: Date | null, end: Date | null) => {
         setFetchByDateStatus("loading")
         try {
-            await trainingPlansService.getPlanWeekByDateRange(userId, start, end)
+            await trainingPlansService.getPlanWeekByDateRange(user?._id, trainingPlanId, start, end)
             setFetchByDateStatus("success")
         } catch (err: any) {
             const errMsg = err.response?.data;
@@ -40,7 +37,8 @@ export default function WeeklyFitnessSection(): JSX.Element {
         <>
             <div className="flex flex-col items-center justify-center w-full">
                 <h2 className="text-2xl font-thin text-gray-800 mb-4">התהליך השבועי שלי</h2>
-                {userTrainingPlans.length > 0 ?
+                <SelectTrainingPlan user={user} />
+                {trainingPlanId ?
                     <div className="w-full">
                         <DateRangeInput
                             onChange={handleDateChange}
@@ -53,7 +51,7 @@ export default function WeeklyFitnessSection(): JSX.Element {
             {
                 fetchByDateStatus === "loading" ? (
                     <SkeletonLoader />
-                ) : currentWeek && currentWeek !== null ? (
+                ) : trainingPlanId && currentWeek !== null ? (
                     <>
                         <WeekDetails week={currentWeek} weekIndex={1} />
                         <div className="mt-6 bg-gray-100 rounded-lg shadow">

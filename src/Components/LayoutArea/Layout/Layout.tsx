@@ -5,6 +5,7 @@ import Routing from "../Routing/Routing";
 import { useEffect } from "react";
 import axios from "axios";
 import { appConfig } from "../../../Utils/AppConfig";
+import CookieConsent from "../../App/CockieConsect";
 
 function Layout(): JSX.Element {
 
@@ -28,6 +29,7 @@ function Layout(): JSX.Element {
             <Header />
             <div className="min-h-screen mt-20">
                 <Toaster position="top-right" />
+                <CookieConsent />
                 < Routing />
             </div>
             <Footer />

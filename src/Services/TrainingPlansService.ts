@@ -27,10 +27,10 @@ class TrainingPlansService {
     const url = `${
       appConfig.trainingPlansUrl + trainingPlanId
     }?page=${page}&limit=${limit}`;
-
     const response = await axios.get<GetTrainingPlanProps>(url);
 
     const trainingPlan = response.data;
+    appStore.dispatch(initPlans(trainingPlan));
     return trainingPlan;
   }
 
@@ -43,6 +43,7 @@ class TrainingPlansService {
 
   public async getPlanWeekByDateRange(
     userId: string,
+    planId: string,
     startDate: Date,
     endDate: Date
   ): Promise<void> {
@@ -52,6 +53,7 @@ class TrainingPlansService {
       {
         data: {
           userId,
+          planId,
           startDate: startDate.toISOString(),
           endDate: endDate.toISOString(),
         },
@@ -61,16 +63,17 @@ class TrainingPlansService {
     appStore.dispatch(setCurrentWeek(week));
   }
 
-  public async getCurrentWeeklyData(userId: string): Promise<IWeek> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+  public async getCurrentWeeklyData(
+    userId: string,
+    trainingPlanId: string
+  ): Promise<void> {
     const response = await axios.get<IWeek>(
-      appConfig.currentWeeklyData + userId
+      appConfig.currentWeeklyData + userId + `/trainingPlan/${trainingPlanId}`
     );
     const weeklyData = response.data;
     if (weeklyData) {
       appStore.dispatch(setCurrentWeek(weeklyData));
     }
-    return weeklyData;
   }
 
   public async addTrainingPlan(trainingPlan: TrainingPlan): Promise<void> {

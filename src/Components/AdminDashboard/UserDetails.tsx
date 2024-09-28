@@ -24,7 +24,6 @@ export default function UserDetails(): JSX.Element {
             </div>
         );
     }
-
     return (
         <div className="py-8 px-4 md:px-12 lg:px-16 bg-gray-100  min-h-screen">
             <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center mt-12">תכניות אימון</h3>

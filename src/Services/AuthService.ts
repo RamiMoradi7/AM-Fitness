@@ -32,9 +32,14 @@ class AuthService {
   }
   public async login(credentials: Credentials): Promise<void> {
     // Getting token.
-    const response = await axios.post<string>(appConfig.loginUrl, credentials);
-    const token = response.data;
+    const response = await axios.post<string>(appConfig.loginUrl, credentials, {
+      headers: {
+        "X-CSRF-Token": window.csrfToken || "", // Include the CSRF token here
+      },
+      withCredentials: true, // Ensure credentials are sent
+    });
 
+    const token = response.data;
     // Extract userId from token.
     const { _id: userId } = jwtDecode<{ user: User }>(token).user;
     if (!userId) throw new Error("משתמש לא קיים.");
@@ -54,8 +59,6 @@ class AuthService {
       email,
     });
   }
-
-
 
   public async validateResetPasswordToken(token: string): Promise<boolean> {
     const response = await axios.post<{ valid: boolean }>(
