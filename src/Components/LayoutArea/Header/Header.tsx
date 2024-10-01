@@ -11,7 +11,7 @@ export default function Header(): JSX.Element {
     const { user } = useSelector(selectAuthState);
     const location = useLocation();
 
-    const isAdmin = user?.roleId === 1
+    const isAdmin = user?.roleId === 1;
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -31,17 +31,8 @@ export default function Header(): JSX.Element {
         user ? { title: "התנתק", link: "/auth", onClick: handleSignOut } : { title: "התחברות", link: "/auth", hash: "#login" },
     ].filter(Boolean);
 
-    useEffect(() => {
-        if (location.hash) {
-            const element = document.querySelector(location.hash);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [location.hash]);
-
     return (
-        <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center bg-gradient-to-t from-gray-900 to-black justify-between px-4 py-5 ">
+        <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center bg-gradient-to-t from-gray-900 to-black justify-between px-4 py-5">
             <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
                 <div className="w-full flex items-center justify-between lg:w-auto lg:static lg:justify-between">
                     <div className="lg:hidden">
@@ -58,10 +49,26 @@ export default function Header(): JSX.Element {
                     <p className="text-lg font-bold leading-relaxed py-2 whitespace-nowrap uppercase text-green-500">
                         Matan Amrani Fitness
                     </p>
-
                 </div>
-                <div className={`lg:flex flex-grow items-center lg:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
-                    <ul onClick={handleToggle} className="flex flex-col lg:flex-row list-none lg:ml-auto">
+
+                {/* Menu for larger screens */}
+                <div className="hidden lg:flex flex-grow items-center lg:shadow-none">
+                    <ul className="flex list-none lg:ml-auto">
+                        {menuItems.map((item) => (
+                            <MenuButton
+                                item={item.title}
+                                link={item.link}
+                                hash={item.hash}
+                                key={item.title}
+                                onClick={item.onClick}
+                            />
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Mobile menu */}
+                <div className={`lg:hidden flex-grow items-center transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+                    <ul onClick={handleToggle} className="flex flex-col list-none">
                         {menuItems.map((item) => (
                             <MenuButton
                                 item={item.title}

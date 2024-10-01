@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { selectAuthState } from "../../../Redux/AuthSlice";
 import Loader from "../../Common/Loaders/Loader";
+import { useEffect } from "react";
+import { authService } from "../../../Services/AuthService";
 
 type ProtectedRouteProps = {
     element: JSX.Element;
@@ -11,6 +13,15 @@ type ProtectedRouteProps = {
 export default function ProtectedRoute({ element, requiredRole }: ProtectedRouteProps): JSX.Element {
     const { isAuthenticated, user, isLoading } = useSelector(selectAuthState);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        authService.initializeUserFromSession()
+            .catch((err: any) => {
+                console.log(err);
+                navigate("/403")
+            })
+    }, [])
 
     if (isLoading || (!isAuthenticated && user === null)) {
         return (

@@ -70,7 +70,7 @@ export const useEditSetDetails = ({ weekId }: UseEditSetDetailsProps) => {
       toast.success("עודכן בהצלחה");
       setEditingField(null);
     } catch (err: any) {
-      const errMsg = err.response?.data || "נסה שנית מאוחר יותר.";
+      const errMsg = err.message;
       toast.error(errMsg);
     }
   };

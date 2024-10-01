@@ -1,5 +1,6 @@
 import { useState } from "react";
 import homepageWallpaper from "../../../Assets/Images/matan.jpg";
+
 export default function HeroSection(): JSX.Element {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -32,24 +33,23 @@ export default function HeroSection(): JSX.Element {
             <div className="container relative mx-auto px-4 pt-16 lg:mt-20 lg:ml-96">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-6/12 px-4 text-center" data-aos="fade-in">
-                        <h1 className="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide drop-shadow-lg">
+                        <h1 className="text-white font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide drop-shadow-lg">
                             AM <span className="text-green-500">Fitness</span>
                         </h1>
                         <p className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl text-white font-semibold">
-                            הורדתי 59 ק"ג וסבלתי מכל רגע, היום אני אעשה הכל כדי שאתם לא תסבלו!
+                            "הורדתי 59 ק"ג, והיום אני כאן כדי להבטיח שאתם לא תסבלו בתהליך!"
                         </p>
                         <p className="mt-2 text-base sm:text-lg md:text-xl lg:text-2xl text-white font-semibold">
-                            עוזר לאנשים במשקל עודף להתחטב ולפתח שרירים
+                            מתמחה בעזרה לאנשים עם משקל עודף להתחטב ולפתח שרירים בצורה בריאה ויעילה.
                         </p>
 
-                        {/* Bounce animation for the icon */}
                         <div className="mt-6 flex justify-center animate-bounce">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="2em"
                                 height="2em"
                                 viewBox="0 0 24 24"
-                                className="text-white opacity-90 hover:opacity-100 transition duration-300 ease-in-out"
+                                className="text-green-500 opacity-90 hover:opacity-100 transition duration-300 ease-in-out"
                             >
                                 <path
                                     fill="none"

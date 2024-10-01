@@ -33,7 +33,7 @@ export default function ContactUsForm(): JSX.Element {
                 </p>
 
                 <div className="relative w-full mb-3 mt-8">
-                    <label className="block uppercase text-xs font-bold mb-2" htmlFor="full-name">
+                    <label className="block uppercase text-xs font-bold mb-2" htmlFor="fullName">
                         שם מלא
                     </label>
                     <Input control={control} name="fullName" placeholder="שמך המלא" type="text" />

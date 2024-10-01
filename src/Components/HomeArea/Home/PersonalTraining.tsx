@@ -33,10 +33,9 @@ export default function PersonalTraining(): JSX.Element {
                     <div className="w-full md:w-7/12 px-4" data-aos="fade-down-left">
                         <div className="md:pr-12">
                             <small className="text-green-500">קצת על הסטודיו</small>
-                            <h3 className="text-3xl md:text-4xl font-bold uppercase"><span className="text-green-500">בטיחות</span> בפיתוח גוף</h3>
+                            <h3 className="text-3xl md:text-4xl font-bold uppercase"><span className="text-green-500">הסטודיו</span> שלי</h3>
                             <p className="mt-4 text-lg leading-relaxed">
-                                כאן המקום לספר על היתרונות של הסטודיו, הציוד המתקדם ושיטות האימון הייחודיות.
-                            </p>
+                                יחס אישי והתאמה מלאה: כל לקוח מקבל יחס אישי ומותאם לצרכים, למטרות, וליכולות הפיזיות שלו. התוכניות בנויות בהתאמה אישית, כך שכל מתאמן מתקדם בקצב שלו.                            </p>
                             <ul className="list-none mt-6">
                                 <li className="py-2">
                                     <div className="flex items-center">
@@ -47,7 +46,7 @@ export default function PersonalTraining(): JSX.Element {
                                         </div>
                                         <div>
                                             <h4 className="text-lg mr-2">
-                                                ציוד חדר כושר מהמתקדמים בעולם
+                                                ציוד חדר כושר מקצועי
                                             </h4>
                                         </div>
                                     </div>
@@ -61,8 +60,7 @@ export default function PersonalTraining(): JSX.Element {
                                         </div>
                                         <div>
                                             <h4 className="text-lg mr-2">
-                                                ריפוד איכותי בגובה חמישה אינצ'ים
-                                            </h4>
+                                                אימונים אישיים אפקטיביים                                             </h4>
                                         </div>
                                     </div>
                                 </li>
@@ -75,8 +73,7 @@ export default function PersonalTraining(): JSX.Element {
                                         </div>
                                         <div>
                                             <h4 className="text-lg mr-2">
-                                                שלושה מאמנים מקצועיים
-                                            </h4>
+                                                ליווי אישי בדגש על טכניקת עבודה מושלמת                                            </h4>
                                         </div>
                                     </div>
                                 </li>

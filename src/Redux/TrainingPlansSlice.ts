@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../hooks/useFetch";
 import { Day, IWeek, SetDetails, TrainingPlan } from "../Models/TrainingPlan";
 import { GetTrainingPlanProps } from "../Services/TrainingPlansService";
+import { Exercise } from "../Models/Exercise";
 
 export interface TrainingPlansState {
   trainingPlans: Record<string, TrainingPlan>;
@@ -49,25 +50,34 @@ const trainingPlansSlice = createSlice({
       }>
     ) {
       const { weekId, exerciseId, updatedSetDetails } = action.payload;
-      const week = state.weeks[weekId];
 
-      if (week) {
-        for (const day of week.days) {
-          const exercise = day.exercises.find((e) => e._id === exerciseId);
-          if (exercise) {
-            const setDetails = exercise.setDetails.findIndex(
-              (set) => set._id === updatedSetDetails._id
-            );
-            exercise.setDetails[setDetails] = updatedSetDetails;
-            break;
-          }
-        }
-      }
-      if (state.currentWeek && state.currentWeek._id === weekId) {
-        state.currentWeek = {
-          ...state.currentWeek,
-          days: [...week.days],
+      const updateExerciseSetDetails = (week: IWeek) => {
+        return {
+          ...week,
+          days: week.days.map((day) => ({
+            ...day,
+            exercises: day.exercises.map((exercise) =>
+              exercise._id === exerciseId
+                ? {
+                    ...exercise,
+                    setDetails: exercise.setDetails.map((set) =>
+                      set._id === updatedSetDetails._id
+                        ? updatedSetDetails
+                        : set
+                    ),
+                  }
+                : exercise
+            ),
+          })),
         };
+      };
+
+      if (state.weeks[weekId]) {
+        state.weeks[weekId] = updateExerciseSetDetails(state.weeks[weekId]);
+      }
+
+      if (state.currentWeek && state.currentWeek._id === weekId) {
+        state.currentWeek = updateExerciseSetDetails(state.currentWeek);
       }
     },
 

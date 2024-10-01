@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../Components/LayoutArea/page404/page404.css";
 
-function Page404(): JSX.Element {
+function Page403(): JSX.Element {
     const navigate = useNavigate();
 
     return (
@@ -13,7 +13,7 @@ function Page404(): JSX.Element {
                             <h1 className="relative text-9xl tracking-tighter-less text-shadow font-sans font-bold">
                                 <span>4</span>
                                 <span>0</span>
-                                <span>4</span>
+                                <span>3</span>
                             </h1>
                             <span className="absolute top-0 -ml-12 text-gray-300 font-semibold">
                                 אופס!
@@ -27,10 +27,10 @@ function Page404(): JSX.Element {
                         </p>
                         <div className="flex justify-center">
                             <button
-                                onClick={() => navigate("/")}
+                                onClick={() => navigate("/auth")}
                                 className="bg-green-400 px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-50 rounded-full hover:shadow-lg"
                             >
-                                חזור לדף הבית
+                                התחבר
                             </button>
                         </div>
                     </div>
@@ -40,4 +40,4 @@ function Page404(): JSX.Element {
     );
 }
 
-export default Page404;
+export default Page403;

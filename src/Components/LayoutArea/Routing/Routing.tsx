@@ -7,6 +7,7 @@ import UserDashboard from "../../../pages/UserDashboard";
 import EditPlanWeek from "../../AdminDashboard/TrainingPlans/EditPlanWeek";
 import ResetPassword from "../../Auth/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import Page403 from "../../../pages/Page403";
 
 type RouteProps = {
     path: string
@@ -49,6 +50,10 @@ function Routing(): JSX.Element {
         {
             path: '/reset-password',
             element: <ResetPassword />,
+        },
+        {
+            path: "/403",
+            element: <Page403 />
         },
         {
             path: '*',

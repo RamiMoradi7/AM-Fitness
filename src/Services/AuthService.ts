@@ -8,10 +8,10 @@ import { authActions } from "../Redux/AuthSlice";
 import { usersService } from "./UsersService";
 
 class AuthService {
-  public constructor() {
+  public async initializeUserFromSession(): Promise<void> {
     const token = sessionStorage.getItem("token");
     if (token) {
-      this.initializeUser(token);
+      await this.initializeUser(token);
     }
   }
 
@@ -32,13 +32,7 @@ class AuthService {
   }
   public async login(credentials: Credentials): Promise<void> {
     // Getting token.
-    const response = await axios.post<string>(appConfig.loginUrl, credentials, {
-      headers: {
-        "X-CSRF-Token": window.csrfToken || "", // Include the CSRF token here
-      },
-      withCredentials: true, // Ensure credentials are sent
-    });
-
+    const response = await axios.post<string>(appConfig.loginUrl, credentials);
     const token = response.data;
     // Extract userId from token.
     const { _id: userId } = jwtDecode<{ user: User }>(token).user;
